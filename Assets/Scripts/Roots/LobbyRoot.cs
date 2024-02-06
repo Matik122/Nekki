@@ -18,12 +18,18 @@ namespace Roots
                 OnGameAction = onGameAction;
             }
         }
+
+        [SerializeField] private Button _startGameButton;
         
 
         protected override void OnInit()
         {
             base.OnInit();
-            
+
+            _startGameButton
+                .OnClickAsObservable()
+                .SafeSubscribe(_ => ActiveModel.OnGameAction?.Invoke())
+                .AddTo(Disposables);
         }
     }
 }

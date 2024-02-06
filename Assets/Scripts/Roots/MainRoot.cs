@@ -39,6 +39,7 @@ namespace Roots
                 .AddTo(_rootDisposable);
 
             _gameMachine.AddState(new LobbyState(_gameMachine));
+            _gameMachine.AddState(new GameState(_gameMachine));
 
             return Observable.ReturnUnit();
         }
