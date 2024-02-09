@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using GameStateMachine;
 using GameStateMachine.States;
+using SO;
 using Support;
 using UniRx;
 using UnityEngine;
@@ -11,6 +12,8 @@ namespace Roots
 {
     public class MainRoot : MonoBehaviour
     {
+        [SerializeField] private GameConfig _gameConfig;
+        
         private GameMachine _gameMachine;
 
         private readonly CompositeDisposable _rootDisposable = new();
@@ -39,7 +42,7 @@ namespace Roots
                 .AddTo(_rootDisposable);
 
             _gameMachine.AddState(new LobbyState(_gameMachine));
-            _gameMachine.AddState(new GameState(_gameMachine));
+            _gameMachine.AddState(new GameState(_gameMachine, _gameConfig));
 
             return Observable.ReturnUnit();
         }

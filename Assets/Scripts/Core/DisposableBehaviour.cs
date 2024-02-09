@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Core
 {
-    public class DisposableBehaviour<T> : MonoBehaviour
+    public class DisposableBehaviour<T> : MonoBehaviour where T : class
     {
         protected CompositeDisposable Disposables;
         protected T ActiveModel { get; private set; }

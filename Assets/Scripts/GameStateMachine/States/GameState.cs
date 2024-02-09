@@ -1,5 +1,6 @@
 using System;
 using Roots;
+using SO;
 using Support;
 using UniRx;
 
@@ -8,13 +9,15 @@ namespace GameStateMachine.States
     public class GameState : GameStateBase<Unit>
     {
         private readonly GameMachine _gameMachine;
+        private readonly GameConfig _gameConfig;
         private readonly CompositeDisposable _rootDisposable = new();
 
         private const string StateSceneName = "Game";
         
-        public GameState(GameMachine gameMachine)
+        public GameState(GameMachine gameMachine, GameConfig gameConfig)
         {
             _gameMachine = gameMachine;
+            _gameConfig = gameConfig;
         }
 
         protected override void Init()
@@ -37,7 +40,7 @@ namespace GameStateMachine.States
             var gameRoot = SceneExtensions.LoadSceneRoot<GameRoot>();
 
             gameRoot
-                .Init(new LobbyRoot.Model(OnExit))
+                .Init(new GameRoot.Model(_gameConfig, OnExit))
                 .AddTo(subscriptions);
 
             return subscriptions;
