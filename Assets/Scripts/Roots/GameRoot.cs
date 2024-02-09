@@ -1,6 +1,7 @@
 using System;
 using Core;
 using Game;
+using Pool;
 using SO;
 using UniRx;
 using UnityEngine;
@@ -12,12 +13,14 @@ namespace Roots
         public class Model
         {
             public readonly GameConfig GameConfig;
+            public readonly IGamePool GamePool;
             public readonly Action OnGameAction;
 
-            public Model(GameConfig gameConfig, Action onGameAction)
+            public Model(GameConfig gameConfig, Action onGameAction, IGamePool gamePool)
             {
                 OnGameAction = onGameAction;
                 GameConfig = gameConfig;
+                GamePool = gamePool;
             }
         }
 
@@ -30,10 +33,15 @@ namespace Roots
             base.OnInit();
             
             _mainMage
-                .Init(new UnitBase.BaseModel(0,0,0,5))
+                .Init(new UnitBase.BaseModel(ActiveModel.GameConfig.Mage.Health, 
+                                             ActiveModel.GameConfig.Mage.Damage,
+                                             ActiveModel.GameConfig.Mage.Defence,
+                                             ActiveModel.GameConfig.Mage.Speed))
                 .AddTo(Disposables);
 
-            new CameraFollow(_camera, _mainMage.transform, ActiveModel.GameConfig.Camera.CameraOffset, ActiveModel.GameConfig.Camera.SmoothSpeed)
+            new CameraFollow(_camera, _mainMage.transform, 
+                                      ActiveModel.GameConfig.Camera.CameraOffset, 
+                                      ActiveModel.GameConfig.Camera.SmoothSpeed)
                 .Init()
                 .AddTo(Disposables);
         }

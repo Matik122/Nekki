@@ -7,12 +7,22 @@ namespace SO
     public class GameConfig : ScriptableObject
     {
         public CameraConfig Camera;
+        public MageConfig Mage;
         
         [Serializable]
         public class CameraConfig
         {
             public Vector3 CameraOffset;
             public float SmoothSpeed;
+        }
+        
+        [Serializable]
+        public class MageConfig
+        {
+            public int Health;
+            public int Damage;
+            public int Defence;
+            public int Speed;
         }
         
     }
