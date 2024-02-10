@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core;
 using Pool;
 using SO;
 using Support;
 using UniRx;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Game
 {
@@ -51,49 +53,35 @@ namespace Game
         
         private IObservable<long> TimerObservable()
         {
-            return Observable.Interval(TimeSpan.FromSeconds(3));
+            return Observable.Interval(TimeSpan.FromSeconds(_gameConfig.EnemyPool.IntervalForPool));
         }
 
         private IDisposable ActivateEnemyPeriodically()
         {
-            return TimerObservable().Subscribe(_ =>
+            return TimerObservable().SafeSubscribe(_ =>
             {
-                int activeCount = 0;
-        
-                for (int i = 0; i < _enemyObjects.Count; i++)
-                {
-                    if (_enemyObjects[i].activeSelf)
+                _enemyObjects
+                    .Where(obj => !obj.activeSelf)
+                    .Take(1)
+                    .ToList()
+                    .ForEach(obj =>
                     {
-                        activeCount++;
-                    }
-                    else
-                    {
-                        _enemyObjects[i].SetActive(true);
-                        return;
-                    }
-                }
+                        obj.SetActive(true);
+                    });
 
-                if (activeCount == _enemyObjects.Count) 
-                {
-                    _enemyObjects[_currentIndex].SetActive(false);
+                if (!_enemyObjects.All(obj => obj.activeSelf)) 
+                    return;
+                
+                var spawnedObject = _gamePool.Spawn(
+                    _gameConfig.Enemies.ElementAtOrDefault(Random.Range(_gameConfig.EnemyPool.StartRandomIndex, _gameConfig.Enemies.Count)),
+                    _poolContainer);
 
-                    _currentIndex++;
-                    if (_currentIndex >= _enemyObjects.Count)
-                    {
-                        var spawnedObject = _gamePool.Spawn(_gameConfig.Enemies[0], _poolContainer);
-                        _enemyObjects.Add(spawnedObject.gameObject);
-                        if (_enemyObjects.Count > 1)
-                        {
-                            _enemyObjects[0].SetActive(true);
-                        }
-                        _currentIndex = 0;
-                    }
-                    else
-                    {
-                        _enemyObjects[_currentIndex].SetActive(true);
-                    }
-                }
-            });
+                if (spawnedObject == null) 
+                    return;
+                    
+                _enemyObjects.Add(spawnedObject.gameObject);
+                spawnedObject.gameObject.SetActive(true);
+            }).AddTo(Disposables);
         }
     }
 }

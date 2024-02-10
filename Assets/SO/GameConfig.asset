@@ -20,6 +20,9 @@ MonoBehaviour:
     Damage: 10
     Defence: 10
     Speed: 5
+  EnemyPool:
+    IntervalForPool: 3
+    StartRandomIndex: 0
   Enemies:
   - {fileID: 3706459965879887488, guid: c60aa9f7bac665448b358145d95a6db4, type: 3}
   - {fileID: 1158342072260203834, guid: 925d3151938a8f94fb61678f556ba81e, type: 3}

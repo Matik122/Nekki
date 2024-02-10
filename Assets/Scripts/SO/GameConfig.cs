@@ -10,6 +10,7 @@ namespace SO
     {
         public CameraConfig Camera;
         public MageConfig Mage;
+        public EnemyPoolConfig EnemyPool;
         public List<UnitBase> Enemies;
         
         [Serializable]
@@ -26,6 +27,13 @@ namespace SO
             public int Damage;
             public int Defence;
             public int Speed;
+        }
+        
+        [Serializable]
+        public class EnemyPoolConfig
+        {
+            public int IntervalForPool;
+            public int StartRandomIndex;
         }
         
     }
