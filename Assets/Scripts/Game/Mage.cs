@@ -9,8 +9,10 @@ namespace Game
     public class Mage : UnitBase
     {
         [SerializeField] private Collider _collider;
+        [SerializeField] private Animator _animator;
         
         private float _rotationSpeed;
+        private string _currentAnimationState;
         
         protected override void OnInit()
         {
@@ -32,6 +34,7 @@ namespace Game
                         if (!enemy.HasAttacked()) 
                         {
                             Debug.LogError("Attack");
+                            _animator.SetTrigger("TakeDamage");
                             TakeDamage(enemy.ToDamage());
                             enemy.SetAttacked();
                         }
@@ -57,7 +60,7 @@ namespace Game
 
         protected override void Die()
         {
-            gameObject.SetActive(false);
+            _animator.SetTrigger("Die");
         }
         
         private void MoveMage()
@@ -67,6 +70,20 @@ namespace Game
 
             transform.Translate(Vector3.forward * ActiveModel.Speed * vertical * Time.deltaTime);
             transform.Rotate(Vector3.up, _rotationSpeed * horizontal * Time.deltaTime);
+            
+            if (vertical != 0 || horizontal != 0)
+            {
+                _animator.SetBool("IsWalk", true);
+            }
+            else
+            {
+                _animator.SetBool("IsWalk", false);
+            }
+
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                _animator.SetTrigger("Attack");
+            }
         }
         
         public override float ToDamage() => 

@@ -6738,6 +6738,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5402889863039032580, guid: 95b092899fb6a40edb6a4270dc3e92c7, type: 3}
+      propertyPath: _animator
+      value: 
+      objectReference: {fileID: 5580286995581448754}
+    - target: {fileID: 5402889863039032580, guid: 95b092899fb6a40edb6a4270dc3e92c7, type: 3}
       propertyPath: _collider
       value: 
       objectReference: {fileID: 5580286995581448752}
@@ -6805,6 +6809,11 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!95 &5580286995581448754 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 271965791475670135, guid: 95b092899fb6a40edb6a4270dc3e92c7, type: 3}
+  m_PrefabInstance: {fileID: 5580286995581448750}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
