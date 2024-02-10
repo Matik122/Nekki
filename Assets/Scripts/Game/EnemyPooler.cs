@@ -15,16 +15,18 @@ namespace Game
     {
         private readonly IGamePool _gamePool;
         private readonly GameConfig _gameConfig;
+        private readonly Mage _mage;
         private readonly Transform _poolContainer;
+        private readonly List<Enemy> _enemyObjects = new ();
         
-        private readonly List<GameObject> _enemyObjects = new ();
         private int _currentIndex;
 
         
-        public EnemyPooler(IGamePool gamePool, GameConfig gameConfig, Transform poolContainer)
+        public EnemyPooler(IGamePool gamePool, GameConfig gameConfig, Mage mage, Transform poolContainer)
         {
             _gamePool = gamePool;
             _gameConfig = gameConfig;
+            _mage = mage;
             _poolContainer = poolContainer;
         }
         
@@ -33,21 +35,28 @@ namespace Game
             base.OnInit();
             
             PoolAllEnemyTypes();
-            ActivateEnemyPeriodically().AddTo(Disposables);
+            
+            ActivateEnemyPeriodically()
+                .AddTo(Disposables);
         }
 
         private void PoolAllEnemyTypes()
         {
             _gameConfig.Enemies.ForEach(arg =>
             {
-               var spawnedObject = _gamePool.Spawn(arg, _poolContainer);
+               var spawnedObject = _gamePool.Spawn(arg as Enemy, _poolContainer);
                 spawnedObject.gameObject.SetActive(false);
-                _enemyObjects.Add(spawnedObject.gameObject);
+                _enemyObjects.Add(spawnedObject);
             });
             
             if (_enemyObjects.Count > 0)
             {
-                _enemyObjects[_currentIndex].SetActive(true);
+                _enemyObjects[_currentIndex].gameObject.SetActive(true);
+
+                _enemyObjects[_currentIndex]
+                    .Init(new UnitBase.BaseModel(0, 0, 0, 5))
+                    .AddAction(() => _enemyObjects[_currentIndex].InjectMage(_mage))
+                    .AddTo(Disposables);
             }
         }
         
@@ -60,27 +69,35 @@ namespace Game
         {
             return TimerObservable().SafeSubscribe(_ =>
             {
-                _enemyObjects
-                    .Where(obj => !obj.activeSelf)
-                    .Take(1)
-                    .ToList()
-                    .ForEach(obj =>
-                    {
-                        obj.SetActive(true);
-                    });
-
-                if (!_enemyObjects.All(obj => obj.activeSelf)) 
-                    return;
-                
-                var spawnedObject = _gamePool.Spawn(
-                    _gameConfig.Enemies.ElementAtOrDefault(Random.Range(_gameConfig.EnemyPool.StartRandomIndex, _gameConfig.Enemies.Count)),
-                    _poolContainer);
-
-                if (spawnedObject == null) 
-                    return;
+                var inactiveObj = _enemyObjects.FirstOrDefault(obj => !obj.gameObject.activeSelf);
+                if (inactiveObj != null)
+                {
+                    inactiveObj.gameObject.SetActive(true);
                     
-                _enemyObjects.Add(spawnedObject.gameObject);
-                spawnedObject.gameObject.SetActive(true);
+                    inactiveObj
+                        .Init(new UnitBase.BaseModel(0,0,0,5))
+                        .AddAction(() => inactiveObj.InjectMage(_mage))
+                        .AddTo(Disposables);
+                }
+                else
+                {
+                    var spawnedObject = _gamePool.Spawn(
+                        _gameConfig.Enemies.ElementAtOrDefault(Random.Range(_gameConfig.EnemyPool.StartRandomIndex,
+                            _gameConfig.Enemies.Count)) as Enemy,
+                        _poolContainer);
+
+                    if (spawnedObject != null)
+                    {
+                        _enemyObjects.Add(spawnedObject);
+                        spawnedObject.gameObject.SetActive(true);
+                        
+                        spawnedObject
+                            .Init(new UnitBase.BaseModel(0,0,0,5))
+                            .AddAction(() => spawnedObject.InjectMage(_mage))
+                            .AddTo(Disposables);
+                    }
+                }
+
             }).AddTo(Disposables);
         }
     }

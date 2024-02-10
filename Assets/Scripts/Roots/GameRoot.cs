@@ -3,6 +3,7 @@ using Core;
 using Game;
 using Pool;
 using SO;
+using Support;
 using UniRx;
 using UnityEngine;
 
@@ -35,7 +36,7 @@ namespace Roots
             
             InitMageComponents();
 
-            new EnemyPooler(ActiveModel.GamePool, ActiveModel.GameConfig, _poolContainer)
+            new EnemyPooler(ActiveModel.GamePool, ActiveModel.GameConfig, _mainMage, _poolContainer)
                 .Init().
                 AddTo(Disposables);
         }
@@ -46,8 +47,8 @@ namespace Roots
                 .Init(new UnitBase.BaseModel(ActiveModel.GameConfig.Mage.Health, 
                     ActiveModel.GameConfig.Mage.Damage,
                     ActiveModel.GameConfig.Mage.Defence,
-                    ActiveModel.GameConfig.Mage.Speed))
-                .AddTo(Disposables);
+                    ActiveModel.GameConfig.Mage.Speed)).
+                AddTo(Disposables);
 
             new CameraFollow(_camera, _mainMage.transform, 
                     ActiveModel.GameConfig.Camera.CameraOffset, 

@@ -1,3 +1,4 @@
+using System;
 using Support;
 using UniRx;
 using UnityEngine;
@@ -17,7 +18,7 @@ namespace Game
                 .SafeSubscribe(_ => MoveMage())
                 .AddTo(Disposables);
         }
-
+        
         protected override void TakeDamage()
         {
             throw new System.NotImplementedException();

@@ -5,6 +5,12 @@ namespace Support
 {
     public static class ReactiveExtensions
     {
+        public static T AddAction<T>(this T disposable, Action action)  where T : IDisposable
+        {
+            action?.Invoke();
+            return disposable;
+        }
+        
         public static IDisposable EmptySubscribe<T>(this IObservable<T> source)
         {
             return source.SafeSubscribe(_ => { });
