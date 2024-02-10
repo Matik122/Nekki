@@ -17,7 +17,7 @@ namespace Game
         private readonly GameConfig _gameConfig;
         private readonly Mage _mage;
         private readonly Transform _poolContainer;
-        private readonly List<Enemy> _enemyObjects = new ();
+        private readonly List<(Enemy enemy, GameConfig.UnitBaseConfig config)> _enemyObjects = new ();
         
         private int _currentIndex;
 
@@ -44,19 +44,15 @@ namespace Game
         {
             _gameConfig.Enemies.ForEach(arg =>
             {
-               var spawnedObject = _gamePool.Spawn(arg as Enemy, _poolContainer);
+               var spawnedObject = _gamePool.Spawn(arg.EnemyPrefab as Enemy, _poolContainer);
                 spawnedObject.gameObject.SetActive(false);
-                _enemyObjects.Add(spawnedObject);
+                _enemyObjects.Add((spawnedObject, arg.Enemy));
             });
             
             if (_enemyObjects.Count > 0)
             {
-                _enemyObjects[_currentIndex].gameObject.SetActive(true);
-
-                _enemyObjects[_currentIndex]
-                    .Init(new UnitBase.BaseModel(0, 0, 0, 5))
-                    .AddAction(() => _enemyObjects[_currentIndex].InjectMage(_mage))
-                    .AddTo(Disposables);
+                _enemyObjects[_currentIndex].enemy.gameObject.SetActive(true);
+                InitEnemy(_enemyObjects[_currentIndex]);
             }
         }
         
@@ -69,36 +65,44 @@ namespace Game
         {
             return TimerObservable().SafeSubscribe(_ =>
             {
-                var inactiveObj = _enemyObjects.FirstOrDefault(obj => !obj.gameObject.activeSelf);
-                if (inactiveObj != null)
+                var inactiveObj = _enemyObjects.FirstOrDefault(obj => !obj.enemy.gameObject.activeSelf);
+                
+                if (inactiveObj.enemy != null)
                 {
-                    inactiveObj.gameObject.SetActive(true);
-                    
-                    inactiveObj
-                        .Init(new UnitBase.BaseModel(0,0,0,5))
-                        .AddAction(() => inactiveObj.InjectMage(_mage))
-                        .AddTo(Disposables);
+                    inactiveObj.enemy.gameObject.SetActive(true);
+                    InitEnemy(inactiveObj);
                 }
                 else
                 {
-                    var spawnedObject = _gamePool.Spawn(
-                        _gameConfig.Enemies.ElementAtOrDefault(Random.Range(_gameConfig.EnemyPool.StartRandomIndex,
-                            _gameConfig.Enemies.Count)) as Enemy,
-                        _poolContainer);
-
-                    if (spawnedObject != null)
+                    if (_enemyObjects.Count < _gameConfig.EnemyPool.LimitPoolCount)
                     {
-                        _enemyObjects.Add(spawnedObject);
-                        spawnedObject.gameObject.SetActive(true);
+                        var enemyConfig = _gameConfig.Enemies.ElementAt(Random.Range(
+                            _gameConfig.EnemyPool.StartRandomIndex,
+                            _gameConfig.Enemies.Count));
                         
-                        spawnedObject
-                            .Init(new UnitBase.BaseModel(0,0,0,5))
-                            .AddAction(() => spawnedObject.InjectMage(_mage))
-                            .AddTo(Disposables);
+                        var spawnedObject = _gamePool.Spawn(enemyConfig.EnemyPrefab as Enemy, _poolContainer);
+
+                        if (spawnedObject != null)
+                        {
+                            _enemyObjects.Add((spawnedObject,enemyConfig.Enemy));
+                            spawnedObject.gameObject.SetActive(true);
+                            InitEnemy(_enemyObjects.Last());
+                        }
                     }
                 }
 
             }).AddTo(Disposables);
+        }
+
+        private void InitEnemy((Enemy enemy,GameConfig.UnitBaseConfig config) enemyConfig)
+        {
+            enemyConfig.enemy
+                .Init(new UnitBase.BaseModel(enemyConfig.config.Health, 
+                                             enemyConfig.config.Damage, 
+                                             enemyConfig.config.Defence, 
+                                             enemyConfig.config.Speed))
+                .AddAction(() => enemyConfig.enemy.InjectMage(_mage))
+                .AddTo(Disposables);
         }
     }
 }

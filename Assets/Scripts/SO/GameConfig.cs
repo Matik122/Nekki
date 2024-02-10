@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Game;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace SO
 {
@@ -9,9 +10,9 @@ namespace SO
     public class GameConfig : ScriptableObject
     {
         public CameraConfig Camera;
-        public MageConfig Mage;
+        public UnitBaseConfig MageConfig;
         public EnemyPoolConfig EnemyPool;
-        public List<UnitBase> Enemies;
+        public List<EnemyConfig> Enemies;
         
         [Serializable]
         public class CameraConfig
@@ -21,7 +22,7 @@ namespace SO
         }
         
         [Serializable]
-        public class MageConfig
+        public class UnitBaseConfig
         {
             public int Health;
             public int Damage;
@@ -34,6 +35,14 @@ namespace SO
         {
             public int IntervalForPool;
             public int StartRandomIndex;
+            public int LimitPoolCount;
+        }
+        
+        [Serializable]
+        public class EnemyConfig
+        {
+            public UnitBase EnemyPrefab;
+            public UnitBaseConfig Enemy;
         }
         
     }

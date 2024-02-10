@@ -37,8 +37,9 @@ namespace Game
         {
             if (gameObject.activeSelf && _mage.transform != null)
             {
-                Vector3 moveDirection = (_mage.transform .position - transform.position).normalized;
+                var moveDirection = (_mage.transform .position - transform.position).normalized;
                 transform.position += moveDirection * ActiveModel.Speed * Time.deltaTime;
+                transform.LookAt(_mage.transform);
             }
         }
     }

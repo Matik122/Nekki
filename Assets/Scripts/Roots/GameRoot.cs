@@ -44,10 +44,10 @@ namespace Roots
         private void InitMageComponents()
         {
             _mainMage
-                .Init(new UnitBase.BaseModel(ActiveModel.GameConfig.Mage.Health, 
-                    ActiveModel.GameConfig.Mage.Damage,
-                    ActiveModel.GameConfig.Mage.Defence,
-                    ActiveModel.GameConfig.Mage.Speed)).
+                .Init(new UnitBase.BaseModel(ActiveModel.GameConfig.MageConfig.Health, 
+                    ActiveModel.GameConfig.MageConfig.Damage,
+                    ActiveModel.GameConfig.MageConfig.Defence,
+                    ActiveModel.GameConfig.MageConfig.Speed)).
                 AddTo(Disposables);
 
             new CameraFollow(_camera, _mainMage.transform, 
