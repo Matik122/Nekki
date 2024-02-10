@@ -44,11 +44,12 @@ namespace Roots
         private void InitMageComponents()
         {
             _mainMage
-                .Init(new UnitBase.BaseModel(ActiveModel.GameConfig.MageConfig.Health, 
-                    ActiveModel.GameConfig.MageConfig.Damage,
-                    ActiveModel.GameConfig.MageConfig.Defence,
-                    ActiveModel.GameConfig.MageConfig.Speed)).
-                AddTo(Disposables);
+                .Init(new UnitBase.BaseModel(ActiveModel.GameConfig.MainPlayer.Mage.Health, 
+                    ActiveModel.GameConfig.MainPlayer.Mage.Damage,
+                    ActiveModel.GameConfig.MainPlayer.Mage.Defence,
+                    ActiveModel.GameConfig.MainPlayer.Mage.Speed))
+                .AddAction(() => _mainMage.InjectRotationSpeed(ActiveModel.GameConfig.MainPlayer.RotationSpeed))
+                .AddTo(Disposables);
 
             new CameraFollow(_camera, _mainMage.transform, 
                     ActiveModel.GameConfig.Camera.CameraOffset, 

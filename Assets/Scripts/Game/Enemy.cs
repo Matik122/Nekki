@@ -17,11 +17,6 @@ namespace Game
                 .SafeSubscribe(_ => MoveToMage())
                 .AddTo(Disposables);
         }
-
-        public void InjectMage(Mage mage)
-        {
-            _mage = mage;
-        }
         
         protected override void TakeDamage()
         {
@@ -42,5 +37,8 @@ namespace Game
                 transform.LookAt(_mage.transform);
             }
         }
+        
+        public void InjectMage(Mage mage) => 
+            _mage = mage;
     }
 }

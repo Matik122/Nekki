@@ -10,7 +10,7 @@ namespace SO
     public class GameConfig : ScriptableObject
     {
         public CameraConfig Camera;
-        public UnitBaseConfig MageConfig;
+        public MageConfig MainPlayer;
         public EnemyPoolConfig EnemyPool;
         public List<EnemyConfig> Enemies;
         
@@ -36,6 +36,13 @@ namespace SO
             public int IntervalForPool;
             public int StartRandomIndex;
             public int LimitPoolCount;
+        }
+        
+        [Serializable]
+        public class MageConfig
+        {
+            public UnitBaseConfig Mage;
+            public float RotationSpeed;
         }
         
         [Serializable]

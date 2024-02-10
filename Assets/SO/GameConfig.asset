@@ -15,11 +15,13 @@ MonoBehaviour:
   Camera:
     CameraOffset: {x: 0, y: 5, z: -5}
     SmoothSpeed: 0.125
-  MageConfig:
-    Health: 5
-    Damage: 0
-    Defence: 0
-    Speed: 8
+  MainPlayer:
+    Mage:
+      Health: 1
+      Damage: 1
+      Defence: 1
+      Speed: 9
+    RotationSpeed: 180
   EnemyPool:
     IntervalForPool: 3
     StartRandomIndex: 0

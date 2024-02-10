@@ -7,7 +7,7 @@ namespace Game
 {
     public class Mage : UnitBase
     {
-        [SerializeField] private float _rotationSpeed = 180f;
+        private float _rotationSpeed;
         
         protected override void OnInit()
         {
@@ -37,5 +37,8 @@ namespace Game
             transform.Translate(Vector3.forward * ActiveModel.Speed * vertical * Time.deltaTime);
             transform.Rotate(Vector3.up, _rotationSpeed * horizontal * Time.deltaTime);
         }
+        
+        public void InjectRotationSpeed(float rotationSpeed) 
+            => _rotationSpeed = rotationSpeed;
     }
 }
