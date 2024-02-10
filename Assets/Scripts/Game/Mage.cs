@@ -21,12 +21,26 @@ namespace Game
                 .SafeSubscribe(_ => MoveMage())
                 .AddTo(Disposables);
 
-            _collider.OnTriggerEnterAsObservable()
-                .Where(arg => arg.gameObject.layer == LayerMask.NameToLayer("Enemy"))
-                .SafeSubscribe(arg =>
+            _collider.OnTriggerStayAsObservable()
+                .Where(trigger => trigger.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+                .SafeSubscribe(trigger =>
                 {
-                    var enemy = arg.gameObject.GetComponent<Enemy>();
-                    TakeDamage(enemy.ToDamage());
+                    var enemy = trigger.gameObject.GetComponent<Enemy>();
+
+                    if (enemy.IsAttackState())
+                    {
+                        if (!enemy.HasAttacked()) 
+                        {
+                            Debug.LogError("Attack");
+                            TakeDamage(enemy.ToDamage());
+                            enemy.SetAttacked();
+                        }
+                    } 
+                    else
+                    {
+                        enemy.ResetAttackFlag();
+                    }
+
                 }).AddTo(Disposables);
             
         }

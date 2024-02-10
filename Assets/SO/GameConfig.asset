@@ -17,7 +17,7 @@ MonoBehaviour:
     SmoothSpeed: 0.125
   MainPlayer:
     Mage:
-      Health: 2
+      Health: 50
       Damage: 1
       Defence: 1
       Speed: 9
