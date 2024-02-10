@@ -20,7 +20,6 @@ namespace Game
         private readonly List<(Enemy enemy, GameConfig.UnitBaseConfig config)> _enemyObjects = new ();
         
         private int _currentIndex;
-
         
         public EnemyPooler(IGamePool gamePool, GameConfig gameConfig, Mage mage, Transform poolContainer)
         {

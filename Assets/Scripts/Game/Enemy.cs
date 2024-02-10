@@ -18,16 +18,16 @@ namespace Game
                 .AddTo(Disposables);
         }
         
-        protected override void TakeDamage()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        protected override void ToDamage()
+        protected override void TakeDamage(float damage)
         {
             throw new System.NotImplementedException();
         }
         
+        protected override void Die()
+        {
+            throw new System.NotImplementedException();
+        }
+
         private void MoveToMage()
         {
             if (gameObject.activeSelf && _mage.transform != null)
@@ -37,7 +37,10 @@ namespace Game
                 transform.LookAt(_mage.transform);
             }
         }
-        
+
+        public override float ToDamage() =>
+            ActiveModel.Damage;
+
         public void InjectMage(Mage mage) => 
             _mage = mage;
     }

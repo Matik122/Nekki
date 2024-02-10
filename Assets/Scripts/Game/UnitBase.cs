@@ -6,12 +6,12 @@ namespace Game
     {
         public class BaseModel
         {
-            public int Health;
-            public int Damage;
-            public int Defence;
-            public int Speed;
+            public float Health;
+            public float Damage;
+            public float Defence;
+            public float Speed;
 
-            public BaseModel(int health, int damage, int defence, int speed)
+            public BaseModel(float health, float damage, float defence, float speed)
             {
                 Health = health;
                 Damage = damage;
@@ -19,9 +19,11 @@ namespace Game
                 Speed = speed;
             }
         }
-
-        protected abstract void TakeDamage();
         
-        protected abstract void ToDamage();
+        public abstract float ToDamage();
+
+        protected abstract void TakeDamage(float damage);
+        
+        protected abstract void Die();
     }
 }

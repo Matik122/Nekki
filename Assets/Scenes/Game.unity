@@ -6725,6 +6725,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Phantom
       objectReference: {fileID: 0}
+    - target: {fileID: 2166606622558684101, guid: 95b092899fb6a40edb6a4270dc3e92c7, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2166606622558684101, guid: 95b092899fb6a40edb6a4270dc3e92c7, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3117721184044300724, guid: 95b092899fb6a40edb6a4270dc3e92c7, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5402889863039032580, guid: 95b092899fb6a40edb6a4270dc3e92c7, type: 3}
+      propertyPath: _collider
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

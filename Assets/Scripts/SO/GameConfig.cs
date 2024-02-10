@@ -24,10 +24,10 @@ namespace SO
         [Serializable]
         public class UnitBaseConfig
         {
-            public int Health;
-            public int Damage;
-            public int Defence;
-            public int Speed;
+            public float Health;
+            public float Damage;
+            public float Defence;
+            public float Speed;
         }
         
         [Serializable]
