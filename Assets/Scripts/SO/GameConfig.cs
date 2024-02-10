@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Game;
 using UnityEngine;
 
 namespace SO
@@ -8,6 +10,7 @@ namespace SO
     {
         public CameraConfig Camera;
         public MageConfig Mage;
+        public List<UnitBase> Enemies;
         
         [Serializable]
         public class CameraConfig

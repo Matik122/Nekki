@@ -27,21 +27,31 @@ namespace Roots
         
         [SerializeField] private Mage _mainMage;
         [SerializeField] private Camera _camera;
+        [SerializeField] private Transform _poolContainer;
         
         protected override void OnInit()
         {
             base.OnInit();
             
+            InitMageComponents();
+
+            new EnemyPooler(ActiveModel.GamePool, ActiveModel.GameConfig, _poolContainer)
+                .Init().
+                AddTo(Disposables);
+        }
+
+        private void InitMageComponents()
+        {
             _mainMage
                 .Init(new UnitBase.BaseModel(ActiveModel.GameConfig.Mage.Health, 
-                                             ActiveModel.GameConfig.Mage.Damage,
-                                             ActiveModel.GameConfig.Mage.Defence,
-                                             ActiveModel.GameConfig.Mage.Speed))
+                    ActiveModel.GameConfig.Mage.Damage,
+                    ActiveModel.GameConfig.Mage.Defence,
+                    ActiveModel.GameConfig.Mage.Speed))
                 .AddTo(Disposables);
 
             new CameraFollow(_camera, _mainMage.transform, 
-                                      ActiveModel.GameConfig.Camera.CameraOffset, 
-                                      ActiveModel.GameConfig.Camera.SmoothSpeed)
+                    ActiveModel.GameConfig.Camera.CameraOffset, 
+                    ActiveModel.GameConfig.Camera.SmoothSpeed)
                 .Init()
                 .AddTo(Disposables);
         }
