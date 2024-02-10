@@ -66,12 +66,4 @@ namespace Game
             _hasAttacked = true;
         
     }
-    
-    public enum AnimationState
-    {
-        Idle,
-        Walk,
-        Attack,
-        Die
-    }
 }
