@@ -36,11 +36,11 @@ namespace Game
         {
             var enemyValidation = _enemy.gameObject.activeSelf && !_enemy.IsDead();
             
+            var distanceToMage = Vector3.Distance(_enemy.transform.position, _mage.transform.position);
+            var isDistanceReached = distanceToMage > DistanceToMage;
+            
             if (enemyValidation)
             {
-                var distanceToMage = Vector3.Distance(_enemy.transform.position, _mage.transform.position);
-                var isDistanceReached = distanceToMage > DistanceToMage;
-
                 if (isDistanceReached)
                 {
                     var moveDirection = (_mage.transform.position - _enemy.transform.position).normalized;
@@ -50,7 +50,7 @@ namespace Game
                 
             }
            
-            _animationAction.SetBool(AnimationConsts.IsWalk, enemyValidation);
+            _animationAction.SetBool(AnimationConsts.IsWalk, enemyValidation && isDistanceReached);
         }
     }
 }

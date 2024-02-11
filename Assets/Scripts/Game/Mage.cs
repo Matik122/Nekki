@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using Windows;
 using Pool;
+using Services.WindowService;
 using SO;
 using UniRx;
 using UnityEngine;
@@ -13,13 +15,28 @@ namespace Game
             public float RotationSpeed;
             public IGamePool Pool;
             public List<GameConfig.SpellConfig> Spells;
+            public ReactiveProperty<float> OnHealthChange;
+            public WindowsService WindowsService;
+            public FailWindow.Model FailWindowModel;
 
-            public MageModel(float health, float damage, float defence, float speed, float rotationSpeed, IGamePool pool, List<GameConfig.SpellConfig> spells)
+            public MageModel(float health, 
+                             float damage, 
+                             float defence, 
+                             float speed, 
+                             float rotationSpeed, 
+                             IGamePool pool, 
+                             List<GameConfig.SpellConfig> spells,
+                             ReactiveProperty<float> onHealthChange,
+                             WindowsService windowsService,
+                             FailWindow.Model failWindowModel)
                 : base(health, damage, defence, speed)
             {
                 RotationSpeed = rotationSpeed;
                 Pool = pool;
                 Spells = spells;
+                OnHealthChange = onHealthChange;
+                WindowsService = windowsService;
+                FailWindowModel = failWindowModel;
             }
         }
         
@@ -53,11 +70,14 @@ namespace Game
         {
             _isDead = true;
             _animationAction.SetTrigger(AnimationConsts.DieState);
+            
+            ActiveModel.WindowsService.Open(ActiveModel.FailWindowModel, false);
         }
         
         public override void TakeDamage(float damage)
         {
             ActiveModel.Health -= damage * ActiveModel.Defence;
+            ActiveModel.OnHealthChange.Value = ActiveModel.Health;
    
             if (ActiveModel.Health <= 0)
             {

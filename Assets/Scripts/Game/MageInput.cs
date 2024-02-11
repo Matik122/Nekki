@@ -40,11 +40,18 @@ namespace Game
             
             Observable
                 .EveryUpdate()
-                .SafeSubscribe(_ => MoveMage())
+                .Where(_ => !_mage.IsDead())
+                .SafeSubscribe(_ => InputActions())
                 .AddTo(Disposables);
         }
         
-        private void MoveMage()
+        private void InputActions()
+        {
+            MoveInput();
+            SpellInput();
+        }
+
+        private void MoveInput()
         {
             var horizontal = Input.GetAxis("Horizontal");
             var vertical = Input.GetAxis("Vertical");
@@ -53,7 +60,11 @@ namespace Game
             _mage.transform.Rotate(Vector3.up, _rotationSpeed * horizontal * Time.deltaTime);
             
             _animationAction.SetBool(AnimationConsts.IsWalk, vertical != 0 || horizontal != 0);
-            
+
+        }
+
+        private void SpellInput()
+        {
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 SelectSpell(-1);
@@ -71,7 +82,7 @@ namespace Game
                 var spell = _pool.Spawn(_spells[_currentSpellIndex].Spell, _mage.transform);
                 
                 spell
-                    .Init(new Spell.Model(_spells[0].Damage))
+                    .Init(new Spell.Model(_spells[_currentSpellIndex].Damage))
                     .AddTo(Disposables);
             }
         }
