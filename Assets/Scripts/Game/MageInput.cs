@@ -19,6 +19,9 @@ namespace Game
 
         private int _currentSpellIndex;
 
+        private const int LeftSpell = -1;
+        private const int RightSpell = 1;
+
         public MageInput(float speed, 
                          float rotationSpeed,
                          IGamePool pool, 
@@ -66,19 +69,18 @@ namespace Game
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                SelectSpell(-1);
+                SelectSpell(LeftSpell);
             }
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                SelectSpell(1);
+                SelectSpell(RightSpell);
             }
 
             if (Input.GetKeyDown(KeyCode.X))
             {
                 CastSpell();
             }
-            
         }
 
         private void CastSpell()

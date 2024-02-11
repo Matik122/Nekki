@@ -42,6 +42,5 @@ namespace Game
             var spell = collider.gameObject.GetComponent<IDamageble>();
             _enemy.TakeDamage(spell.ToDamage());
         }
-        
     }
 }
