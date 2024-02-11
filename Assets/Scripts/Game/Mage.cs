@@ -68,6 +68,7 @@ namespace Game
             }
         }
         
-        public override bool IsDead() => _isDead;
+        public override bool IsDead() => 
+            _isDead;
     }
 }

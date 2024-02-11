@@ -26,21 +26,22 @@ namespace Game
             Observable.Merge(
                     _collider.OnCollisionEnterAsObservable()
                         .Select(collision => collision.collider)
-                        .Where(trigger => trigger.gameObject.layer == LayerMask.NameToLayer("Spell"))
+                        .Where(trigger => trigger.LayerValidation("Spell") && !_enemy.IsDead())
                         .Do(OnCollisionWithSpell),
                     _collider.OnTriggerStayAsObservable()
-                        .Where(trigger => trigger.gameObject.layer == LayerMask.NameToLayer("Mage"))
+                        .Where(trigger => trigger.LayerValidation("Mage") && !_enemy.IsDead())
                         .Do(_ => _animationAction.SetTrigger(AnimationConsts.AttackState)))
                 .EmptySubscribe()
                 .AddTo(Disposables);
-
         }
 
         private void OnCollisionWithSpell(Collider collider)
         {
             _animationAction.SetTrigger(AnimationConsts.DamageState);
+            
             var spell = collider.gameObject.GetComponent<IDamageble>();
             _enemy.TakeDamage(spell.ToDamage());
         }
+        
     }
 }

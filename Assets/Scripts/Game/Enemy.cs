@@ -58,9 +58,12 @@ namespace Game
                 Die();
             }
         }
-        
-        public void Respawn() => 
+
+        public void Respawn(Transform respawn)
+        {
             _isDead = false;
+            transform.position = respawn.position;
+        }
         
         public void SetAttacked() =>
             _hasAttacked = true;

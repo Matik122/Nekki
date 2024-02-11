@@ -46,12 +46,12 @@ namespace Roots
         {
             _mainMage
                 .Init(new Mage.MageModel(ActiveModel.GameConfig.MainPlayer.Mage.Health, 
-                    ActiveModel.GameConfig.MainPlayer.Mage.Damage,
-                    ActiveModel.GameConfig.MainPlayer.Mage.Defence,
-                    ActiveModel.GameConfig.MainPlayer.Mage.Speed,
-                    ActiveModel.GameConfig.MainPlayer.RotationSpeed,
-                    ActiveModel.GamePool,
-                    ActiveModel.GameConfig.Spells))
+                                         ActiveModel.GameConfig.MainPlayer.Mage.Damage,
+                                         ActiveModel.GameConfig.MainPlayer.Mage.Defence,
+                                         ActiveModel.GameConfig.MainPlayer.Mage.Speed,
+                                         ActiveModel.GameConfig.MainPlayer.RotationSpeed,
+                                         ActiveModel.GamePool,
+                                         ActiveModel.GameConfig.Spells))
                 .AddTo(Disposables);
 
             new CameraFollow(_camera, _mainMage.transform, 

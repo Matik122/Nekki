@@ -47,9 +47,11 @@ namespace Game
                     _enemy.transform.position += moveDirection * _speed * Time.deltaTime;
                     _enemy.transform.LookAt(_mage.transform);
                 }
+                
             }
-            
+           
             _animationAction.SetBool(AnimationConsts.IsWalk, enemyValidation);
+            
         }
     }
 }

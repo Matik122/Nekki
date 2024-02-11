@@ -25,7 +25,7 @@ namespace Game
             base.OnInit();
             
             _collider.OnTriggerStayAsObservable()
-                .Where(trigger => trigger.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+                .Where(trigger => trigger.LayerValidation("Enemy") && !_mage.IsDead())
                 .SafeSubscribe(trigger =>
                 {
                     var enemy = trigger.gameObject.GetComponent<IAttackable>();
