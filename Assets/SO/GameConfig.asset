@@ -19,8 +19,8 @@ MonoBehaviour:
     Mage:
       Health: 50
       Damage: 1
-      Defence: 1
-      Speed: 9
+      Defence: 0.2
+      Speed: 15
     RotationSpeed: 180
   EnemyPool:
     IntervalForPool: 3
@@ -29,86 +29,86 @@ MonoBehaviour:
   Enemies:
   - EnemyPrefab: {fileID: 3706459965879887488, guid: c60aa9f7bac665448b358145d95a6db4, type: 3}
     Enemy:
-      Health: 10
+      Health: 5
       Damage: 1
-      Defence: 1
-      Speed: 3
+      Defence: 0.2
+      Speed: 2
   - EnemyPrefab: {fileID: 1158342072260203834, guid: 925d3151938a8f94fb61678f556ba81e, type: 3}
     Enemy:
-      Health: 5
-      Damage: 4
-      Defence: 1
-      Speed: 5
+      Health: 15
+      Damage: 3
+      Defence: 0.4
+      Speed: 3
   - EnemyPrefab: {fileID: 2689020338935817199, guid: 4cc22bc9bbfb9074782265ec91ae0660, type: 3}
     Enemy:
-      Health: 7
-      Damage: 3
-      Defence: 1
+      Health: 30
+      Damage: 1
+      Defence: 0.1
       Speed: 1
   - EnemyPrefab: {fileID: 8591242253657207563, guid: da80564eb12e49148ad00f2d218dd90e, type: 3}
     Enemy:
       Health: 3
-      Damage: 1
-      Defence: 1
-      Speed: 3
+      Damage: 2
+      Defence: 0.1
+      Speed: 2
   - EnemyPrefab: {fileID: 4197244779872811150, guid: 4ee150fee7825a148b7ceb77408044b5, type: 3}
     Enemy:
-      Health: 1
-      Damage: 1
-      Defence: 1
-      Speed: 1
+      Health: 9
+      Damage: 4
+      Defence: 0.5
+      Speed: 2
   - EnemyPrefab: {fileID: 6982518909279521534, guid: 7f3425f16f17470468f250a8fd950f73, type: 3}
     Enemy:
-      Health: 2
-      Damage: 2
-      Defence: 1
-      Speed: 2
+      Health: 18
+      Damage: 5
+      Defence: 0.6
+      Speed: 1
   - EnemyPrefab: {fileID: 8551228711675940438, guid: d7aa467cc2d06614c81778313afa4825, type: 3}
     Enemy:
-      Health: 3
+      Health: 7
       Damage: 3
-      Defence: 1
-      Speed: 3
+      Defence: 0.5
+      Speed: 2
   - EnemyPrefab: {fileID: 8191577688490465077, guid: 888a2743e21511340ab5e6007fadd92d, type: 3}
     Enemy:
-      Health: 5
-      Damage: 5
-      Defence: 1
-      Speed: 5
+      Health: 15
+      Damage: 10
+      Defence: 0.8
+      Speed: 1
   - EnemyPrefab: {fileID: 5929310268014111429, guid: 785a71c34aa70094982ab3dc90ecd70f, type: 3}
     Enemy:
-      Health: 4
+      Health: 10
       Damage: 8
-      Defence: 1
+      Defence: 0.4
       Speed: 7
   Spells:
   - Spell: {fileID: 5651127595462964332, guid: e7776336bc56a9b4caa1c90ea92ff765, type: 3}
-    Damage: 10
+    Damage: 1
   - Spell: {fileID: -1112040329262425096, guid: f1dc4df701f37324c98ea16f41770afc, type: 3}
-    Damage: 10
+    Damage: 3
   - Spell: {fileID: -7650876850363410805, guid: 6d6dffb689c5c164e9bef8f626ffd74e, type: 3}
-    Damage: 10
+    Damage: 4
   - Spell: {fileID: 8657398048051840866, guid: 5ae5c6fb282fd3c44bf0c2083393e142, type: 3}
-    Damage: 10
+    Damage: 3
   - Spell: {fileID: 7814277134466765584, guid: 6e39ca2f8efb71e48923599f48461c26, type: 3}
-    Damage: 10
+    Damage: 7
   - Spell: {fileID: -4760032030591660084, guid: bc0b77b5d64c11e48b0a22fadb7489ce, type: 3}
-    Damage: 10
+    Damage: 9
   - Spell: {fileID: 8502808790972924141, guid: 489b3a2ec3e7cf949925d1b34247d1a9, type: 3}
-    Damage: 10
+    Damage: 6
   - Spell: {fileID: -7559251857877040194, guid: 0dd71cf1c4378844fae81b273f0ba817, type: 3}
-    Damage: 10
+    Damage: 7
   - Spell: {fileID: -1140293906930130816, guid: 243070df32ba7ac45a49cb799d050a50, type: 3}
-    Damage: 10
+    Damage: 1
   - Spell: {fileID: -269359053696363048, guid: 46b312e00ed9c1f459ea9f0e55bfac77, type: 3}
-    Damage: 10
+    Damage: 3
   - Spell: {fileID: 4878764822551289792, guid: 1eb97977c28d92945935ad5ca57aa800, type: 3}
-    Damage: 10
+    Damage: 4
   - Spell: {fileID: -8229449950456598307, guid: 7e5debf0606b3254faa6bca9a70b6713, type: 3}
-    Damage: 10
+    Damage: 5
   - Spell: {fileID: 5089718993348250081, guid: eb5112a0c4d3eac489f517fa0886c058, type: 3}
-    Damage: 10
+    Damage: 6
   - Spell: {fileID: -3159676724956049464, guid: 31528da7a30e88f4bbf380cf9c9042d7, type: 3}
-    Damage: 10
+    Damage: 8
   - Spell: {fileID: -5820268076867826045, guid: a4ecf9bba65b0b84286159aa10fc4bc2, type: 3}
-    Damage: 10
+    Damage: 9
