@@ -2,7 +2,7 @@ using Core;
 
 namespace Game
 {
-    public class Spell : DisposableBehaviour<Spell.Model>
+    public class Spell : DisposableBehaviour<Spell.Model>, IDamageble
     {
         public class Model
         {

@@ -14,16 +14,23 @@ namespace Game
         private readonly float _rotationSpeed;
         private readonly IGamePool _pool;
         private readonly List<GameConfig.SpellConfig> _spells;
+        private readonly IAnimationAction _animationAction;
         private readonly UnitBase<Mage.MageModel> _mage;
 
         private int _currentSpellIndex;
 
-        public MageInput(float speed, float rotationSpeed,  IGamePool pool, List<GameConfig.SpellConfig> spells, UnitBase<Mage.MageModel> mage)
+        public MageInput(float speed, 
+                         float rotationSpeed,  
+                         IGamePool pool, 
+                         List<GameConfig.SpellConfig> spells,
+                         IAnimationAction animationAction,
+                         UnitBase<Mage.MageModel> mage)
         {
             _speed = speed;
             _rotationSpeed = rotationSpeed;
             _pool = pool;
             _spells = spells;
+            _animationAction = animationAction;
             _mage = mage;
         }
         
@@ -45,7 +52,7 @@ namespace Game
             _mage.transform.Translate(Vector3.forward * _speed * vertical * Time.deltaTime);
             _mage.transform.Rotate(Vector3.up, _rotationSpeed * horizontal * Time.deltaTime);
             
-            _mage.SetBool("IsWalk", vertical != 0 || horizontal != 0);
+            _animationAction.SetBool("IsWalk", vertical != 0 || horizontal != 0);
             
             if (Input.GetKeyDown(KeyCode.Q))
             {
@@ -59,7 +66,7 @@ namespace Game
 
             if (Input.GetKeyDown(KeyCode.X))
             {
-                _mage.SetTrigger("Attack");
+                _animationAction.SetTrigger("Attack");
                 
                 var spell = _pool.Spawn(_spells[_currentSpellIndex].Spell, _mage.transform);
                 
@@ -69,9 +76,7 @@ namespace Game
             }
         }
         
-        private void SelectSpell(int direction)
-        {
+        private void SelectSpell(int direction) =>
             _currentSpellIndex = (_currentSpellIndex + direction + _spells.Count) % _spells.Count;
-        }
     }
 }

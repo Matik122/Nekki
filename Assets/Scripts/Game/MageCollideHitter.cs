@@ -10,11 +10,13 @@ namespace Game
     public class MageCollideHitter : DisposableClass
     {
         private readonly Collider _collider;
+        private readonly IAnimationAction _animationAction;
         private readonly UnitBase<Mage.MageModel> _mage;
         
-        public MageCollideHitter(Collider collider, UnitBase<Mage.MageModel> mage)
+        public MageCollideHitter(Collider collider,  IAnimationAction animationAction, UnitBase<Mage.MageModel> mage)
         {
             _collider = collider;
+            _animationAction = animationAction;
             _mage = mage;
         }
         
@@ -26,13 +28,13 @@ namespace Game
                 .Where(trigger => trigger.gameObject.layer == LayerMask.NameToLayer("Enemy"))
                 .SafeSubscribe(trigger =>
                 {
-                    var enemy = trigger.gameObject.GetComponent<Enemy>();
+                    var enemy = trigger.gameObject.GetComponent<IAttackable>();
 
                     if (enemy.IsAttackState())
                     {
                         if (!enemy.HasAttacked()) 
                         {
-                            _mage.SetTrigger("TakeDamage");
+                            _animationAction.SetTrigger("TakeDamage");
                             _mage.TakeDamage(enemy.ToDamage());
                             enemy.SetAttacked();
                         }

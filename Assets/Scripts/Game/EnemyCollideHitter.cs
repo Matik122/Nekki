@@ -25,7 +25,7 @@ namespace Game
                 .Where(trigger => trigger.gameObject.layer == LayerMask.NameToLayer("Spell"))
                 .SafeSubscribe(trigger =>
                 {
-                    var spell = trigger.gameObject.GetComponent<Spell>();
+                    var spell = trigger.gameObject.GetComponent<IDamageble>();
                     _enemy.TakeDamage(spell.ToDamage());
                 }).AddTo(Disposables);
         }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Game
 {
-    public class Enemy : UnitBase<Enemy.EnemyModel>, IDamageble
+    public class Enemy : UnitBase<Enemy.EnemyModel>, IAttackable
     {
         public class EnemyModel : UnitBaseModel
         {
@@ -50,12 +50,6 @@ namespace Game
         {
             Debug.LogError("DEAD");
         }
-        
-        public override void SetTrigger(string triggerName) =>
-            _animator.SetTrigger(Animator.StringToHash(triggerName));
-        
-        public override void SetBool(string triggerName, bool state) =>
-            _animator.SetBool(Animator.StringToHash(triggerName), state);
         
         public bool IsAttackState() =>
             _animator.GetCurrentAnimatorStateInfo(0).IsName("Attack");

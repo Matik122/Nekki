@@ -28,18 +28,25 @@ namespace Game
         
         [SerializeField] private Collider _collider;
         [SerializeField] private Animator _animator;
-        
-        private string _currentAnimationState;
+
+        private IAnimationAction _animationAction;
         
         protected override void OnInit()
         {
             base.OnInit();
+
+            _animationAction = new AnimationAction(_animator);
             
-            new MageInput(ActiveModel.Speed, ActiveModel.RotationSpeed, ActiveModel.Pool, ActiveModel.Spells, this)
+            new MageInput(ActiveModel.Speed, 
+                          ActiveModel.RotationSpeed, 
+                          ActiveModel.Pool, 
+                          ActiveModel.Spells, 
+                          _animationAction, 
+                          this)
                 .Init()
                 .AddTo(Disposables);
 
-            new MageCollideHitter(_collider, this)
+            new MageCollideHitter(_collider, _animationAction, this)
                 .Init()
                 .AddTo(Disposables);
         }
@@ -56,14 +63,8 @@ namespace Game
 
         protected override void Die()
         {
-            SetTrigger("Die");
+            _animationAction.SetTrigger("Die");
         }
-
-        public override void SetTrigger(string triggerName) =>
-            _animator.SetTrigger(Animator.StringToHash(triggerName));
-        
-        public override void SetBool(string triggerName, bool state) =>
-            _animator.SetBool(Animator.StringToHash(triggerName), state);
         
     }
 }
