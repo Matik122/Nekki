@@ -23,7 +23,7 @@ MonoBehaviour:
       Speed: 9
     RotationSpeed: 180
   EnemyPool:
-    IntervalForPool: 3
+    IntervalForPool: 10
     StartRandomIndex: 0
     LimitPoolCount: 10
   Enemies:

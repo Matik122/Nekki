@@ -6,6 +6,8 @@ namespace Game
     public interface IAnimationAction
     {
         public void SetTrigger(string triggerName);
+        
+        public void ResetTrigger(string triggerName);
 
         public void SetBool(string triggerName, bool state);
     }
@@ -21,7 +23,11 @@ namespace Game
         
         public void SetTrigger(string triggerName) =>
             _animator.SetTrigger(Animator.StringToHash(triggerName));
+
+        public void ResetTrigger(string triggerName)=>
+            _animator.ResetTrigger(Animator.StringToHash(triggerName));
         
+
         public void SetBool(string triggerName, bool state) =>
             _animator.SetBool(Animator.StringToHash(triggerName), state);
     }

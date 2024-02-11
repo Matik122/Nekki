@@ -9,11 +9,13 @@ namespace Game
     public class EnemyCollideHitter : DisposableClass
     {
         private readonly Collider _collider;
+        private readonly IAnimationAction _animationAction;
         private readonly UnitBase<Enemy.EnemyModel> _enemy;
 
-        public EnemyCollideHitter(Collider collider, UnitBase<Enemy.EnemyModel> enemy)
+        public EnemyCollideHitter(Collider collider, IAnimationAction animationAction, UnitBase<Enemy.EnemyModel> enemy)
         {
             _collider = collider;
+            _animationAction = animationAction;
             _enemy = enemy;
         }
         
@@ -21,13 +23,24 @@ namespace Game
         {
             base.OnInit();
             
-            _collider.OnCollisionEnterAsObservable()
-                .Where(trigger => trigger.gameObject.layer == LayerMask.NameToLayer("Spell"))
-                .SafeSubscribe(trigger =>
-                {
-                    var spell = trigger.gameObject.GetComponent<IDamageble>();
-                    _enemy.TakeDamage(spell.ToDamage());
-                }).AddTo(Disposables);
+            Observable.Merge(
+                    _collider.OnCollisionEnterAsObservable()
+                        .Select(collision => collision.collider)
+                        .Where(trigger => trigger.gameObject.layer == LayerMask.NameToLayer("Spell"))
+                        .Do(OnCollisionWithSpell),
+                    _collider.OnTriggerStayAsObservable()
+                        .Where(trigger => trigger.gameObject.layer == LayerMask.NameToLayer("Mage"))
+                        .Do(_ => _animationAction.SetTrigger(AnimationConsts.AttackState)))
+                .EmptySubscribe()
+                .AddTo(Disposables);
+
+        }
+
+        private void OnCollisionWithSpell(Collider collider)
+        {
+            _animationAction.SetTrigger(AnimationConsts.DamageState);
+            var spell = collider.gameObject.GetComponent<IDamageble>();
+            _enemy.TakeDamage(spell.ToDamage());
         }
     }
 }

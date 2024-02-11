@@ -101,6 +101,7 @@ namespace Game
                                            enemyConfig.config.Defence, 
                                            enemyConfig.config.Speed,
                                            _mage))
+                .AddAction(() => enemyConfig.enemy.Respawn())
                 .AddTo(Disposables);
         }
     }

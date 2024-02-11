@@ -9,12 +9,16 @@ namespace Game
     {
         private readonly Mage _mage;
         private readonly float _speed;
+        private readonly IAnimationAction _animationAction;
         private readonly UnitBase<Enemy.EnemyModel> _enemy;
 
-        public EnemyMove(float speed, Mage mage, UnitBase<Enemy.EnemyModel> enemy)
+        private const float DistanceToMage = 0.7f;
+
+        public EnemyMove(float speed, Mage mage, IAnimationAction animationAction, UnitBase<Enemy.EnemyModel> enemy)
         {
             _speed = speed;
             _mage = mage;
+            _animationAction = animationAction;
             _enemy = enemy;
         }
         
@@ -30,17 +34,22 @@ namespace Game
         
         private void MoveToMage()
         {
-            if (_enemy.gameObject.activeSelf && _mage != null)
+            var enemyValidation = _enemy.gameObject.activeSelf && !_enemy.IsDead();
+            
+            if (enemyValidation)
             {
-                float distanceToMage = Vector3.Distance(_enemy.transform.position, _mage.transform.position);
+                var distanceToMage = Vector3.Distance(_enemy.transform.position, _mage.transform.position);
+                var isDistanceReached = distanceToMage > DistanceToMage;
 
-                if (distanceToMage > 0.7f)
+                if (isDistanceReached)
                 {
                     var moveDirection = (_mage.transform.position - _enemy.transform.position).normalized;
                     _enemy.transform.position += moveDirection * _speed * Time.deltaTime;
                     _enemy.transform.LookAt(_mage.transform);
                 }
             }
+            
+            _animationAction.SetBool(AnimationConsts.IsWalk, enemyValidation);
         }
     }
 }

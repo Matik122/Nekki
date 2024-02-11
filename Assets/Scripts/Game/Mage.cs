@@ -30,6 +30,7 @@ namespace Game
         [SerializeField] private Animator _animator;
 
         private IAnimationAction _animationAction;
+        private bool _isDead;
         
         protected override void OnInit()
         {
@@ -51,6 +52,12 @@ namespace Game
                 .AddTo(Disposables);
         }
         
+        protected override void Die()
+        {
+            _isDead = true;
+            _animationAction.SetTrigger(AnimationConsts.DieState);
+        }
+        
         public override void TakeDamage(float damage)
         {
             ActiveModel.Health -= damage * ActiveModel.Defence;
@@ -60,11 +67,7 @@ namespace Game
                 Die();
             }
         }
-
-        protected override void Die()
-        {
-            _animationAction.SetTrigger("Die");
-        }
         
+        public override bool IsDead() => _isDead;
     }
 }

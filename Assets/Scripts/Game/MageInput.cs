@@ -52,7 +52,7 @@ namespace Game
             _mage.transform.Translate(Vector3.forward * _speed * vertical * Time.deltaTime);
             _mage.transform.Rotate(Vector3.up, _rotationSpeed * horizontal * Time.deltaTime);
             
-            _animationAction.SetBool("IsWalk", vertical != 0 || horizontal != 0);
+            _animationAction.SetBool(AnimationConsts.IsWalk, vertical != 0 || horizontal != 0);
             
             if (Input.GetKeyDown(KeyCode.Q))
             {
@@ -66,7 +66,7 @@ namespace Game
 
             if (Input.GetKeyDown(KeyCode.X))
             {
-                _animationAction.SetTrigger("Attack");
+                _animationAction.SetTrigger(AnimationConsts.AttackState);
                 
                 var spell = _pool.Spawn(_spells[_currentSpellIndex].Spell, _mage.transform);
                 

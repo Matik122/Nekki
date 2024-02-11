@@ -79,6 +79,6 @@ public class ProjectileMover : MonoBehaviour
                 detachedPrefab.transform.parent = null;
             }
         }
-        Destroy(gameObject,1f);
+        Destroy(gameObject);
     }
 }

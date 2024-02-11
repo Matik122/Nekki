@@ -34,7 +34,7 @@ namespace Game
                     {
                         if (!enemy.HasAttacked()) 
                         {
-                            _animationAction.SetTrigger("TakeDamage");
+                            _animationAction.SetTrigger(AnimationConsts.DamageState);
                             _mage.TakeDamage(enemy.ToDamage());
                             enemy.SetAttacked();
                         }
