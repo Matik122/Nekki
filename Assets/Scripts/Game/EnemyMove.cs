@@ -51,7 +51,6 @@ namespace Game
             }
            
             _animationAction.SetBool(AnimationConsts.IsWalk, enemyValidation);
-            
         }
     }
 }

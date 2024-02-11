@@ -1,4 +1,3 @@
-using Core;
 using UnityEngine;
 
 namespace Game
@@ -27,7 +26,6 @@ namespace Game
         public void ResetTrigger(string triggerName)=>
             _animator.ResetTrigger(Animator.StringToHash(triggerName));
         
-
         public void SetBool(string triggerName, bool state) =>
             _animator.SetBool(Animator.StringToHash(triggerName), state);
     }
