@@ -4,25 +4,33 @@ using UnityEngine;
 
 namespace Game
 {
-    public class Enemy : UnitBase
+    public class Enemy : UnitBase<Enemy.EnemyModel>
     {
+        public class EnemyModel : UnitBaseModel
+        {
+            public Mage Mage;
+
+            public EnemyModel(float health, float damage, float defence, float speed, Mage mage)
+                : base(health, damage, defence, speed)
+            {
+                Mage = mage;
+            }
+        }
+        
         [SerializeField] private Animator _animator;
         
-        private Mage _mage;
-
         private bool _hasAttacked;
         
         protected override void OnInit()
         {
             base.OnInit();
-
-            Observable
-                .EveryUpdate()
-                .SafeSubscribe(_ => MoveToMage())
+            
+            new EnemyMove(ActiveModel.Speed, ActiveModel.Mage, this)
+                .Init()
                 .AddTo(Disposables);
         }
         
-        protected override void TakeDamage(float damage)
+        public override void TakeDamage(float damage)
         {
             throw new System.NotImplementedException();
         }
@@ -31,39 +39,26 @@ namespace Game
         {
             throw new System.NotImplementedException();
         }
-
-        private void MoveToMage()
-        {
-            if (gameObject.activeSelf && _mage != null)
-            {
-                float distanceToMage = Vector3.Distance(transform.position, _mage.transform.position);
-
-                if (distanceToMage > 0.7f)
-                {
-                    var moveDirection = (_mage.transform.position - transform.position).normalized;
-                    transform.position += moveDirection * ActiveModel.Speed * Time.deltaTime;
-                    transform.LookAt(_mage.transform);
-                }
-            }
-        }
+        
+        public override void SetTrigger(string triggerName) =>
+            _animator.SetTrigger(Animator.StringToHash(triggerName));
+        
+        public override void SetBool(string triggerName, bool state) =>
+            _animator.SetBool(Animator.StringToHash(triggerName), state);
         
         public bool IsAttackState() =>
             _animator.GetCurrentAnimatorStateInfo(0).IsName("Attack");
-
-        public override float ToDamage() =>
-            ActiveModel.Damage;
-
-        public void InjectMage(Mage mage) => 
-            _mage = mage;
         
         public void ResetAttackFlag() =>
             _hasAttacked = false;
         
         public bool HasAttacked() =>
-         _hasAttacked;
+            _hasAttacked;
         
         public void SetAttacked() =>
             _hasAttacked = true;
         
+        public override float ToDamage() =>
+            ActiveModel.Damage;
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Game;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -48,8 +49,14 @@ namespace SO
         [Serializable]
         public class EnemyConfig
         {
-            public UnitBase EnemyPrefab;
+            public Enemy EnemyPrefab;
             public UnitBaseConfig Enemy;
+        }
+        
+        [Serializable]
+        public class SpellConfig
+        {
+            
         }
         
     }

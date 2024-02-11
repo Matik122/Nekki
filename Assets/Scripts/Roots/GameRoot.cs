@@ -5,6 +5,7 @@ using Pool;
 using SO;
 using Support;
 using UniRx;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Roots
@@ -44,11 +45,11 @@ namespace Roots
         private void InitMageComponents()
         {
             _mainMage
-                .Init(new UnitBase.BaseModel(ActiveModel.GameConfig.MainPlayer.Mage.Health, 
+                .Init(new Mage.MageModel(ActiveModel.GameConfig.MainPlayer.Mage.Health, 
                     ActiveModel.GameConfig.MainPlayer.Mage.Damage,
                     ActiveModel.GameConfig.MainPlayer.Mage.Defence,
-                    ActiveModel.GameConfig.MainPlayer.Mage.Speed))
-                .AddAction(() => _mainMage.InjectRotationSpeed(ActiveModel.GameConfig.MainPlayer.RotationSpeed))
+                    ActiveModel.GameConfig.MainPlayer.Mage.Speed,
+                    ActiveModel.GameConfig.MainPlayer.RotationSpeed))
                 .AddTo(Disposables);
 
             new CameraFollow(_camera, _mainMage.transform, 

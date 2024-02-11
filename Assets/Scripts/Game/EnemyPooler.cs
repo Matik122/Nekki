@@ -96,11 +96,11 @@ namespace Game
         private void InitEnemy((Enemy enemy,GameConfig.UnitBaseConfig config) enemyConfig)
         {
             enemyConfig.enemy
-                .Init(new UnitBase.BaseModel(enemyConfig.config.Health, 
-                                             enemyConfig.config.Damage, 
-                                             enemyConfig.config.Defence, 
-                                             enemyConfig.config.Speed))
-                .AddAction(() => enemyConfig.enemy.InjectMage(_mage))
+                .Init(new Enemy.EnemyModel(enemyConfig.config.Health, 
+                                           enemyConfig.config.Damage, 
+                                           enemyConfig.config.Defence, 
+                                           enemyConfig.config.Speed,
+                                           _mage))
                 .AddTo(Disposables);
         }
     }
