@@ -49,7 +49,9 @@ namespace Roots
                     ActiveModel.GameConfig.MainPlayer.Mage.Damage,
                     ActiveModel.GameConfig.MainPlayer.Mage.Defence,
                     ActiveModel.GameConfig.MainPlayer.Mage.Speed,
-                    ActiveModel.GameConfig.MainPlayer.RotationSpeed))
+                    ActiveModel.GameConfig.MainPlayer.RotationSpeed,
+                    ActiveModel.GamePool,
+                    ActiveModel.GameConfig.Spells))
                 .AddTo(Disposables);
 
             new CameraFollow(_camera, _mainMage.transform, 

@@ -1306,6 +1306,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 8672787908851178254}
+  _collider: {fileID: 8872422962624714181}
 --- !u!65 &8872422962624714181
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1321,7 +1322,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

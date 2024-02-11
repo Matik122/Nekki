@@ -22,8 +22,6 @@ namespace Game
 
         public abstract void SetTrigger(string triggerName);
 
-        public abstract float ToDamage();
-
         public abstract void SetBool(string triggerName, bool state);
 
         public abstract void TakeDamage(float damage);

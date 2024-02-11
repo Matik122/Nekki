@@ -1,10 +1,11 @@
 using Support;
 using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 
 namespace Game
 {
-    public class Enemy : UnitBase<Enemy.EnemyModel>
+    public class Enemy : UnitBase<Enemy.EnemyModel>, IDamageble
     {
         public class EnemyModel : UnitBaseModel
         {
@@ -18,6 +19,7 @@ namespace Game
         }
         
         [SerializeField] private Animator _animator;
+        [SerializeField] private Collider _collider;
         
         private bool _hasAttacked;
         
@@ -28,16 +30,25 @@ namespace Game
             new EnemyMove(ActiveModel.Speed, ActiveModel.Mage, this)
                 .Init()
                 .AddTo(Disposables);
+
+            new EnemyCollideHitter(_collider, this)
+                .Init()
+                .AddTo(Disposables);
         }
         
         public override void TakeDamage(float damage)
         {
-            throw new System.NotImplementedException();
+            ActiveModel.Health -= damage * ActiveModel.Defence;
+   
+            if (ActiveModel.Health <= 0)
+            {
+                Die();
+            }
         }
         
         protected override void Die()
         {
-            throw new System.NotImplementedException();
+            Debug.LogError("DEAD");
         }
         
         public override void SetTrigger(string triggerName) =>
@@ -58,7 +69,7 @@ namespace Game
         public void SetAttacked() =>
             _hasAttacked = true;
         
-        public override float ToDamage() =>
+        public float ToDamage() =>
             ActiveModel.Damage;
     }
 }

@@ -81,3 +81,34 @@ MonoBehaviour:
       Damage: 8
       Defence: 1
       Speed: 7
+  Spells:
+  - Spell: {fileID: 5651127595462964332, guid: e7776336bc56a9b4caa1c90ea92ff765, type: 3}
+    Damage: 10
+  - Spell: {fileID: -1112040329262425096, guid: f1dc4df701f37324c98ea16f41770afc, type: 3}
+    Damage: 10
+  - Spell: {fileID: -7650876850363410805, guid: 6d6dffb689c5c164e9bef8f626ffd74e, type: 3}
+    Damage: 10
+  - Spell: {fileID: 8657398048051840866, guid: 5ae5c6fb282fd3c44bf0c2083393e142, type: 3}
+    Damage: 10
+  - Spell: {fileID: 7814277134466765584, guid: 6e39ca2f8efb71e48923599f48461c26, type: 3}
+    Damage: 10
+  - Spell: {fileID: -4760032030591660084, guid: bc0b77b5d64c11e48b0a22fadb7489ce, type: 3}
+    Damage: 10
+  - Spell: {fileID: 8502808790972924141, guid: 489b3a2ec3e7cf949925d1b34247d1a9, type: 3}
+    Damage: 10
+  - Spell: {fileID: -7559251857877040194, guid: 0dd71cf1c4378844fae81b273f0ba817, type: 3}
+    Damage: 10
+  - Spell: {fileID: -1140293906930130816, guid: 243070df32ba7ac45a49cb799d050a50, type: 3}
+    Damage: 10
+  - Spell: {fileID: -269359053696363048, guid: 46b312e00ed9c1f459ea9f0e55bfac77, type: 3}
+    Damage: 10
+  - Spell: {fileID: 4878764822551289792, guid: 1eb97977c28d92945935ad5ca57aa800, type: 3}
+    Damage: 10
+  - Spell: {fileID: -8229449950456598307, guid: 7e5debf0606b3254faa6bca9a70b6713, type: 3}
+    Damage: 10
+  - Spell: {fileID: 5089718993348250081, guid: eb5112a0c4d3eac489f517fa0886c058, type: 3}
+    Damage: 10
+  - Spell: {fileID: -3159676724956049464, guid: 31528da7a30e88f4bbf380cf9c9042d7, type: 3}
+    Damage: 10
+  - Spell: {fileID: -5820268076867826045, guid: a4ecf9bba65b0b84286159aa10fc4bc2, type: 3}
+    Damage: 10

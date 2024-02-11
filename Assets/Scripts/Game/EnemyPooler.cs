@@ -43,7 +43,7 @@ namespace Game
         {
             _gameConfig.Enemies.ForEach(arg =>
             {
-               var spawnedObject = _gamePool.Spawn(arg.EnemyPrefab as Enemy, _poolContainer);
+               var spawnedObject = _gamePool.Spawn(arg.EnemyPrefab , _poolContainer);
                 spawnedObject.gameObject.SetActive(false);
                 _enemyObjects.Add((spawnedObject, arg.Enemy));
             });
@@ -79,7 +79,7 @@ namespace Game
                             _gameConfig.EnemyPool.StartRandomIndex,
                             _gameConfig.Enemies.Count));
                         
-                        var spawnedObject = _gamePool.Spawn(enemyConfig.EnemyPrefab as Enemy, _poolContainer);
+                        var spawnedObject = _gamePool.Spawn(enemyConfig.EnemyPrefab , _poolContainer);
 
                         if (spawnedObject != null)
                         {

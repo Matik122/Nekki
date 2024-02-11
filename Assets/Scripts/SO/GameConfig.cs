@@ -14,6 +14,7 @@ namespace SO
         public MageConfig MainPlayer;
         public EnemyPoolConfig EnemyPool;
         public List<EnemyConfig> Enemies;
+        public List<SpellConfig> Spells;
         
         [Serializable]
         public class CameraConfig
@@ -56,7 +57,8 @@ namespace SO
         [Serializable]
         public class SpellConfig
         {
-            
+            public Spell Spell;
+            public float Damage;
         }
         
     }

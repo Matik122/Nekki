@@ -32,7 +32,6 @@ namespace Game
                     {
                         if (!enemy.HasAttacked()) 
                         {
-                            Debug.LogError("Attack");
                             _mage.SetTrigger("TakeDamage");
                             _mage.TakeDamage(enemy.ToDamage());
                             enemy.SetAttacked();
