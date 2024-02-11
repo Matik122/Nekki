@@ -1,6 +1,4 @@
-using Support;
 using UniRx;
-using UniRx.Triggers;
 using UnityEngine;
 
 namespace Game

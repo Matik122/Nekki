@@ -20,7 +20,7 @@ namespace Game
         private int _currentSpellIndex;
 
         public MageInput(float speed, 
-                         float rotationSpeed,  
+                         float rotationSpeed,
                          IGamePool pool, 
                          List<GameConfig.SpellConfig> spells,
                          IAnimationAction animationAction,
@@ -60,7 +60,6 @@ namespace Game
             _mage.transform.Rotate(Vector3.up, _rotationSpeed * horizontal * Time.deltaTime);
             
             _animationAction.SetBool(AnimationConsts.IsWalk, vertical != 0 || horizontal != 0);
-
         }
 
         private void SpellInput()
@@ -77,14 +76,20 @@ namespace Game
 
             if (Input.GetKeyDown(KeyCode.X))
             {
-                _animationAction.SetTrigger(AnimationConsts.AttackState);
-                
-                var spell = _pool.Spawn(_spells[_currentSpellIndex].Spell, _mage.transform);
-                
-                spell
-                    .Init(new Spell.Model(_spells[_currentSpellIndex].Damage))
-                    .AddTo(Disposables);
+                CastSpell();
             }
+            
+        }
+
+        private void CastSpell()
+        {
+            _animationAction.SetTrigger(AnimationConsts.AttackState);
+                
+            var spell = _pool.Spawn(_spells[_currentSpellIndex].Spell, _mage.transform);
+                
+            spell
+                .Init(new Spell.Model(_spells[_currentSpellIndex].Damage))
+                .AddTo(Disposables);
         }
         
         private void SelectSpell(int direction) =>

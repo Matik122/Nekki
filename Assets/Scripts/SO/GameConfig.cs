@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Game;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace SO
 {
